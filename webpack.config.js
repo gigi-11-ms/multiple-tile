@@ -48,6 +48,9 @@ var webpackConfig = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    fallback: {
+      buffer: false,
+    },
   },
   plugins: [new UglifyJSPlugin()],
   stats: {},

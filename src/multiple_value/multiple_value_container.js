@@ -135,6 +135,20 @@ looker.plugins.visualizations.add({
           default: '',
           order: 10 * index + 6,
         };
+        options.customTheme = {
+          section: 'Theme',
+          type: 'string',
+          label: 'Load custom CSS from:',
+          default: '',
+          order: 1,
+        };
+        options.loadCustomTheme = {
+          section: 'Theme',
+          type: 'boolean',
+          label: 'Load',
+          default: false,
+          order: 2,
+        };
       }
       // Comparison - all data points other than the first
       if (index >= 1) {

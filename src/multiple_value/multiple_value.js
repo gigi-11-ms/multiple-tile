@@ -80,6 +80,15 @@ class MultipleValue extends React.PureComponent {
   }
 
   componentDidMount() {
+    const {
+      config: {loadCustomTheme, customTheme},
+    } = this.props;
+    if (loadCustomTheme) {
+      removeStyles();
+      loadStylesheet(customTheme);
+    } else {
+      removeStyles();
+    }
     window.addEventListener('resize', this.recalculateSizing);
   }
 
