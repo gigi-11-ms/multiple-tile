@@ -1,17 +1,10 @@
 project_name: "viz-multiple"
 
-constant: VIS_LABEL {
-  value: "Multiple Value Visualization Custom"
-  export: override_optional
-}
-
-constant: VIS_ID {
-  value: "mviz-multiple"
-  export:  override_optional
-}
-
 visualization: {
-  id: "@{VIS_ID}"
-  url: "https://marketplace-api.looker.com/viz-dist/multiple_value.js"
-  label: "@{VIS_LABEL}"
+  id: "multiple-id"
+  label: "Multiple Visualization Private"
+  url: "https://cdn.jsdelivr.net/gh/gigi-11-ms/multiple-tile/dist/bundle.js"
+  sri_hash: "SRI hash"
+  # dependencies: ["dependency_url_1","dependency_url_2"]
+  # file: "visualization_file_path"
 }
