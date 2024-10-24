@@ -159,11 +159,11 @@ class MultipleValue extends React.PureComponent {
   };
 
   render() {
-    const {config, data, totalData} = this.props;
+    const {config, data} = this.props;
     let message;
     let display = false;
 
-    console.log({config, data, totalData});
+    console.log({config, data});
 
     return (
       <DataPointsWrapper
@@ -212,7 +212,9 @@ class MultipleValue extends React.PureComponent {
                     }}
                     layout={this.getLayout()}
                   >
-                    {dataPoint.html
+                    {config[`show_total_${dataPoint.name}`]
+                      ? dataPoint.formattedTotal
+                      : dataPoint.html
                       ? ReactHtmlParser(DOMPurify.sanitize(dataPoint.html))
                       : dataPoint.formattedValue}
                   </DataPointValue>
