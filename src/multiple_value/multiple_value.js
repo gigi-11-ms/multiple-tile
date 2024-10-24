@@ -173,7 +173,6 @@ class MultipleValue extends React.PureComponent {
       >
         {data.map((dataPoint, index) => {
           const compDataPoint = dataPoint.comparison;
-          const totalValue = (totalData[dataPoint.name] || {}).value;
           if (compDataPoint < 0 || compDataPoint > 0) {
             display = false;
           } else if (compDataPoint === 0 || compDataPoint === null) {
@@ -219,7 +218,6 @@ class MultipleValue extends React.PureComponent {
                       : dataPoint.formattedValue}
                   </DataPointValue>
                 </DataPoint>
-                {totalValue ? <div>total: {totalValue}</div> : null}
                 {this.checkData(compDataPoint) ? null : (
                   <ComparisonDataPoint
                     config={config}
