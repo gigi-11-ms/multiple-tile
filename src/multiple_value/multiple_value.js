@@ -163,7 +163,7 @@ class MultipleValue extends React.PureComponent {
     let message;
     let display = false;
 
-    console.log({config, pointsData, totalData});
+    console.log({config, data, totalData});
 
     return (
       <DataPointsWrapper
