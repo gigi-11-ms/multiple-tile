@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {ComparisonDataPoint} from './ComparisonDataPoint';
 import ReactHtmlParser from 'react-html-parser';
 import DOMPurify from 'dompurify';
+import {removeStyles, loadStylesheet} from '../lib/common';
 
 const DataPointsWrapper = styled.div`
   font-family: 'Google Sans', 'Roboto', 'Noto Sans JP', 'Noto Sans',
