@@ -159,91 +159,82 @@ class MultipleValue extends React.PureComponent {
   };
 
   render() {
-    const {config, data: pointsData, totalData} = this.props;
+    const {config, data, totalData} = this.props;
     let message;
     let display = false;
 
     console.log({config, pointsData, totalData});
 
     return (
-      <>
-        {pointsData.map(data => (
-          <DataPointsWrapper
-            layout={this.getLayout()}
-            font={config['grouping_font']}
-            style={{fontSize: `${this.state.fontSize}em`}}
-          >
-            {data.map((dataPoint, index) => {
-              const compDataPoint = dataPoint.comparison;
-              const totalValue = (totalData[dataPoint.name] || {}).value;
-              if (compDataPoint < 0 || compDataPoint > 0) {
-                display = false;
-              } else if (compDataPoint === 0 || compDataPoint === null) {
-                display = true;
-                message = (
-                  <a>
-                    {
-                      'Comparison point can not be zero. Adjust the value to continue.'
-                    }
-                  </a>
-                );
-              }
-              return (
-                <>
-                  <DataPointGroup
-                    comparisonPlacement={
-                      compDataPoint &&
-                      config[`comparison_label_placement_${compDataPoint.name}`]
-                    }
-                    key={`group_${dataPoint.name}`}
+      <DataPointsWrapper
+        layout={this.getLayout()}
+        font={config['grouping_font']}
+        style={{fontSize: `${this.state.fontSize}em`}}
+      >
+        {data.map((dataPoint, index) => {
+          const compDataPoint = dataPoint.comparison;
+          const totalValue = (totalData[dataPoint.name] || {}).value;
+          if (compDataPoint < 0 || compDataPoint > 0) {
+            display = false;
+          } else if (compDataPoint === 0 || compDataPoint === null) {
+            display = true;
+            message = (
+              <a>
+                {
+                  'Comparison point can not be zero. Adjust the value to continue.'
+                }
+              </a>
+            );
+          }
+          return (
+            <>
+              <DataPointGroup
+                comparisonPlacement={
+                  compDataPoint &&
+                  config[`comparison_label_placement_${compDataPoint.name}`]
+                }
+                key={`group_${dataPoint.name}`}
+                layout={this.getLayout()}
+              >
+                <DataPoint
+                  titlePlacement={config[`title_placement_${dataPoint.name}`]}
+                >
+                  {config[`show_title_${dataPoint.name}`] === false ? null : (
+                    <DataPointTitle color={config[`style_${dataPoint.name}`]}>
+                      {config[`title_override_${dataPoint.name}`] ||
+                        dataPoint.label}
+                    </DataPointTitle>
+                  )}
+                  <DataPointValue
+                    color={config[`style_${dataPoint.name}`]}
+                    onClick={() => {
+                      this.handleClick(dataPoint, event);
+                    }}
                     layout={this.getLayout()}
                   >
-                    <DataPoint
-                      titlePlacement={
-                        config[`title_placement_${dataPoint.name}`]
-                      }
-                    >
-                      {config[`show_title_${dataPoint.name}`] ===
-                      false ? null : (
-                        <DataPointTitle
-                          color={config[`style_${dataPoint.name}`]}
-                        >
-                          {config[`title_override_${dataPoint.name}`] ||
-                            dataPoint.label}
-                        </DataPointTitle>
-                      )}
-                      <DataPointValue
-                        color={config[`style_${dataPoint.name}`]}
-                        onClick={() => {
-                          this.handleClick(dataPoint, event);
-                        }}
-                        layout={this.getLayout()}
-                      >
-                        {dataPoint.html
-                          ? ReactHtmlParser(DOMPurify.sanitize(dataPoint.html))
-                          : dataPoint.formattedValue}
-                      </DataPointValue>
-                    </DataPoint>
-                    {totalValue ? <div>total: {totalValue}</div> : null}
-                    {this.checkData(compDataPoint) ? null : (
-                      <ComparisonDataPoint
-                        config={config}
-                        compDataPoint={compDataPoint}
-                        dataPoint={dataPoint}
-                        handleClick={this.handleClick}
-                      />
-                    )}
-                  </DataPointGroup>
-                  {config.dividers &&
-                    config.orientation === 'horizontal' &&
-                    index < data.length - 1 && <Divider />}
-                </>
-              );
-            })}
-            {display && message}
-          </DataPointsWrapper>
-        ))}
-      </>
+                    {dataPoint.html
+                      ? ReactHtmlParser(DOMPurify.sanitize(dataPoint.html))
+                      : dataPoint.formattedValue}
+                  </DataPointValue>
+                </DataPoint>
+                {totalValue ? <div>total: {totalValue}</div> : null}
+                {this.checkData(compDataPoint) ? null : (
+                  <ComparisonDataPoint
+                    config={config}
+                    compDataPoint={compDataPoint}
+                    dataPoint={dataPoint}
+                    handleClick={this.handleClick}
+                  />
+                )}
+              </DataPointGroup>
+              {config.dividers &&
+                config.orientation === 'horizontal' &&
+                index < data.length - 1 && <Divider />}
+            </>
+          );
+        })}
+        {display && message}
+      </DataPointsWrapper>
     );
   }
 }
