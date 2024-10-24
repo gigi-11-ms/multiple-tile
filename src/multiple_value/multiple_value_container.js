@@ -69,7 +69,7 @@ looker.plugins.visualizations.add({
 
     const dataPoints = measures.map(measure => {
       const total = (totalData[measure.name] || {}).value;
-      const formattedTotal = (totalData[measure.name] || {}).html;
+      const formattedTotalHtml = (totalData[measure.name] || {}).html;
       return {
         name: measure.name,
         label: measure.label_short || measure.label,
@@ -87,7 +87,7 @@ looker.plugins.visualizations.add({
               ),
         html: firstRow[measure.name].html,
         total,
-        formattedTotal,
+        formattedTotalHtml,
       };
     });
 

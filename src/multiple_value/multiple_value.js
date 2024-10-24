@@ -221,7 +221,9 @@ class MultipleValue extends React.PureComponent {
                     layout={this.getLayout()}
                   >
                     {config[`show_total_${dataPoint.name}`]
-                      ? dataPoint.formattedTotal
+                      ? ReactHtmlParser(
+                          DOMPurify.sanitize(dataPoint.formattedTotalHtml)
+                        )
                       : dataPoint.html
                       ? ReactHtmlParser(DOMPurify.sanitize(dataPoint.html))
                       : dataPoint.formattedValue}
