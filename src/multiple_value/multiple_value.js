@@ -84,7 +84,7 @@ class MultipleValue extends React.PureComponent {
     const {
       config: {loadCustomTheme, customTheme},
     } = this.props;
-    console.log('test mount');
+    console.log('test mounttttt');
     if (loadCustomTheme) {
       removeStyles();
       loadStylesheet(customTheme);
