@@ -1,7 +1,7 @@
 project_name: "viz-multiple"
 
 constant: VIS_LABEL {
-  value: "Multiple Value Visualization"
+  value: "Multiple Value Visualization Custom"
   export: override_optional
 }
 
