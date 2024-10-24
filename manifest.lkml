@@ -1,7 +1,7 @@
 project_name: "viz-multiple"
 
 visualization: {
-  id: "multiple-id"
+  id: "multiple-id-private"
   label: "Multiple Visualization Private"
   url: "https://raw.githubusercontent.com/gigi-11-ms/multiple-tile/refs/heads/dev-gigi-khomeriki-mttr/dist/bundle.js"
   sri_hash: "SRI hash"
