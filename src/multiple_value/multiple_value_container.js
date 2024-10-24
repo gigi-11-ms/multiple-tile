@@ -82,14 +82,14 @@ looker.plugins.visualizations.add({
                 queryResponse.number_format
               ),
         html: firstRow[measure.name].html,
-        total: totalData[measure.name].value,
+        total: (totalData[measure.name] || {}).value,
         formattedTotal:
           config[`value_format_${measure.name}`] === '' ||
           config[`value_format_${measure.name}`] === undefined
             ? LookerCharts.Utils.textForCell(firstRow[measure.name])
             : formatValue(
                 config[`value_format_${measure.name}`],
-                totalData[measure.name].value,
+                (totalData[measure.name] || {}).value,
                 queryResponse.number_format
               ),
       };
