@@ -108,7 +108,7 @@ looker.plugins.visualizations.add({
       queryResponse.fields.table_calculations
     );
 
-    const totalData = queryResponse.totals_data;
+    const totalData = queryResponse.totals_data || {};
 
     if (data.length < 1) {
       this.addError({title: 'No Results'});
