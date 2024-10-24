@@ -68,6 +68,7 @@ looker.plugins.visualizations.add({
     let firstRow = data[0];
 
     const dataPoints = measures.map(measure => {
+      const total = (totalData[measure.name] || {}).value;
       return {
         name: measure.name,
         label: measure.label_short || measure.label,
@@ -84,16 +85,12 @@ looker.plugins.visualizations.add({
                 queryResponse.number_format
               ),
         html: firstRow[measure.name].html,
-        total: (totalData[measure.name] || {}).value,
-        formattedTotal:
-          config[`value_format_${measure.name}`] === '' ||
-          config[`value_format_${measure.name}`] === undefined
-            ? LookerCharts.Utils.textForCell(firstRow[measure.name])
-            : formatValue(
-                config[`value_format_${measure.name}`],
-                (totalData[measure.name] || {}).value,
-                queryResponse.number_format
-              ),
+        total,
+        formattedTotal: formatValue(
+          config[`value_format_${measure.name}`],
+          total,
+          queryResponse.number_format
+        ),
       };
     });
 
