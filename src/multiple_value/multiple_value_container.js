@@ -5,44 +5,42 @@ import MultipleValue from './multiple_value';
 import {formatValue} from '../lib/number_date_format';
 import {PLOT_CONFIG} from '../constants/plot_config';
 import {addBaseTagToHeadElement} from '../lib/add_base_element_to_head';
-import {queryResponse, config, data} from './response';
-console.log({queryResponse, config, data}, 'response');
+// import {queryResponse, config, data} from './response';
+// console.log({queryResponse, config, data}, 'response');
 
-const measures = [].concat(
-  queryResponse.fields.dimensions,
-  queryResponse.fields.measures,
-  queryResponse.fields.table_calculations
-);
+// const measures = [].concat(
+//   queryResponse.fields.dimensions,
+//   queryResponse.fields.measures,
+//   queryResponse.fields.table_calculations
+// );
 
-let firstRow = data[0];
-let dataPoints = [];
+// let firstRow = data[0];
+// let dataPoints = [];
 
-data.forEach((row, index) => {
-  dataPoints[index] = measures.map(measure => {
-    return {
-      name: measure.name,
-      label: measure.label_short || measure.label,
-      value: row[measure.name].value,
-      link: row[measure.name].links,
-      valueFormat: config[`value_format`],
-      formattedValue: row[measure.name].value,
-      formattedValue:
-        config[`value_format_${measure.name}`] === '' ||
-        config[`value_format_${measure.name}`] === undefined
-          ? LookerCharts.Utils.textForCell(row[measure.name])
-          : formatValue(
-              config[`value_format_${measure.name}`],
-              row[measure.name].value,
-              queryResponse.number_format
-            ),
-      html: row[measure.name].html,
-    };
-  });
-});
+// data.forEach((row, index) => {
+//   dataPoints[index] = measures.map(measure => {
+//     return {
+//       name: measure.name,
+//       label: measure.label_short || measure.label,
+//       value: row[measure.name].value,
+//       link: row[measure.name].links,
+//       valueFormat: config[`value_format`],
+//       formattedValue: row[measure.name].value,
+//       formattedValue:
+//         config[`value_format_${measure.name}`] === '' ||
+//         config[`value_format_${measure.name}`] === undefined
+//           ? LookerCharts.Utils.textForCell(row[measure.name])
+//           : formatValue(
+//               config[`value_format_${measure.name}`],
+//               row[measure.name].value,
+//               queryResponse.number_format
+//             ),
+//       html: row[measure.name].html,
+//     };
+//   });
+// });
 
-const totalData = queryResponse.totals_data;
-
-console.log(dataPoints, 'test');
+// console.log(dataPoints, 'test');
 
 // const dataPoints = measures.map(measure => {
 //   return {
@@ -109,6 +107,8 @@ looker.plugins.visualizations.add({
       queryResponse.fields.measures,
       queryResponse.fields.table_calculations
     );
+
+    const totalData = queryResponse.totals_data;
 
     if (data.length < 1) {
       this.addError({title: 'No Results'});
@@ -383,7 +383,7 @@ looker.plugins.visualizations.add({
     //   });
 
     this.chart = ReactDOM.render(
-      <MultipleValue config={config} data={dataPoints} />,
+      <MultipleValue config={config} data={dataPoints} totalData={totalData} />,
       element
     );
     done();
