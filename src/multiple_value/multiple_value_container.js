@@ -24,7 +24,7 @@ looker.plugins.visualizations.add({
     this.clearErrors();
     addBaseTagToHeadElement(document);
 
-    console.log(queryResponse, 'queryResponse');
+    console.log({queryResponse, data, element, config});
     const measures = [].concat(
       queryResponse.fields.dimensions,
       queryResponse.fields.measures,
