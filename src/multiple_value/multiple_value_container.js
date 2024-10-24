@@ -86,11 +86,15 @@ looker.plugins.visualizations.add({
               ),
         html: firstRow[measure.name].html,
         total,
-        formattedTotal: formatValue(
-          config[`value_format_${measure.name}`],
-          total,
-          queryResponse.number_format
-        ),
+        formattedTotal:
+          config[`value_format_${measure.name}`] === '' ||
+          config[`value_format_${measure.name}`] === undefined
+            ? LookerCharts.Utils.textForCell(firstRow[measure.name])
+            : formatValue(
+                config[`value_format_${measure.name}`],
+                total,
+                queryResponse.number_format
+              ),
       };
     });
 
