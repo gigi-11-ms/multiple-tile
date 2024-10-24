@@ -162,6 +162,15 @@ looker.plugins.visualizations.add({
           order: 10 * index,
         };
 
+        // totals
+        options[`show_total_${dataPoint.name}`] = {
+          type: 'boolean',
+          label: `${dataPoint.label} - Show Total`,
+          section: 'Total',
+          default: false,
+          order: index + 1,
+        };
+
         if (config[`show_comparison_${dataPoint.name}`] === true) {
           options[`comparison_style_${dataPoint.name}`] = {
             type: 'string',
