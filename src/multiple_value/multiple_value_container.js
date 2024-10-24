@@ -152,16 +152,15 @@ looker.plugins.visualizations.add({
           value: row[measure.name].value,
           link: row[measure.name].links,
           valueFormat: config[`value_format`],
-          formattedValue: row[measure.name].value,
-          // formattedValue:
-          //   config[`value_format_${measure.name}`] === '' ||
-          //   config[`value_format_${measure.name}`] === undefined
-          //     ? LookerCharts.Utils.textForCell(row[measure.name])
-          //     : formatValue(
-          //         config[`value_format_${measure.name}`],
-          //         row[measure.name].value,
-          //         queryResponse.number_format
-          //       ),
+          formattedValue:
+            config[`value_format_${measure.name}`] === '' ||
+            config[`value_format_${measure.name}`] === undefined
+              ? LookerCharts.Utils.textForCell(row[measure.name])
+              : formatValue(
+                  config[`value_format_${measure.name}`],
+                  row[measure.name].value,
+                  queryResponse.number_format
+                ),
           html: row[measure.name].html,
         };
       });
