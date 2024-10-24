@@ -12,4 +12,4 @@ application: multiple-tile {
     dashboard_tile: yes
     standalone: yes
   }
-}
+  }
