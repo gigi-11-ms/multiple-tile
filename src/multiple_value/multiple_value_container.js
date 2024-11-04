@@ -7,8 +7,8 @@ import {PLOT_CONFIG} from '../constants/plot_config';
 import {addBaseTagToHeadElement} from '../lib/add_base_element_to_head';
 // import {queryResponse, config, data} from './response';
 
-// let currentOptions = {};
-// let currentConfig = {};
+let currentOptions = {};
+let currentConfig = {};
 
 // const measures = [].concat(
 //   queryResponse.fields.dimensions,
