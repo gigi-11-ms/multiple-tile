@@ -317,6 +317,8 @@ looker.plugins.visualizations.add({
     });
 
     if (!isEqual(currentOptions, options) || !isEqual(currentConfig, config)) {
+      console.log('update options');
+      console.log({options, config, currentConfig, currentOptions});
       this.trigger('registerOptions', options);
       currentOptions = Object.assign({}, options);
       currentConfig = Object.assign({}, config);
