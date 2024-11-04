@@ -9,9 +9,11 @@ import {removeStyles, loadStylesheet} from '../lib/common';
 const DataPointsWrapper = styled.div`
   font-family: 'Google Sans', 'Roboto', 'Noto Sans JP', 'Noto Sans',
     'Noto Sans CJK KR', Helvetica, Arial, sans-serif;
-  display: flex;
+  display: ${props => (props.gridColumns ? 'grid' : 'flex')};
   flex-direction: ${props =>
     props.layout === 'horizontal' ? 'row' : 'column'};
+  grid-template-columns: ${props =>
+    props.gridColumns ? `repeat(${props.gridColumns}, 1fr)` : 'unset'};
   align-items: center;
   margin: 10px;
   height: 100%;
@@ -70,6 +72,7 @@ const DataPointValue = styled.div`
     text-decoration: underline;
   }
 `;
+const parser = new DOMParser();
 
 class MultipleValue extends React.PureComponent {
   constructor(props) {
@@ -178,6 +181,7 @@ class MultipleValue extends React.PureComponent {
       <DataPointsWrapper
         layout={this.getLayout()}
         font={config['grouping_font']}
+        gridColumns={config.gridColumns}
         style={{fontSize: `${this.state.fontSize}em`}}
       >
         {data.map((dataPoint, index) => {
@@ -194,6 +198,7 @@ class MultipleValue extends React.PureComponent {
               </a>
             );
           }
+
           return (
             <>
               <DataPointGroup
@@ -221,9 +226,7 @@ class MultipleValue extends React.PureComponent {
                     layout={this.getLayout()}
                   >
                     {config[`show_total_${dataPoint.name}`]
-                      ? ReactHtmlParser(
-                          DOMPurify.sanitize(dataPoint.formattedTotalHtml)
-                        )
+                      ? dataPoint.fomrattedTotalValue
                       : dataPoint.html
                       ? ReactHtmlParser(DOMPurify.sanitize(dataPoint.html))
                       : dataPoint.formattedValue}

@@ -21,4 +21,11 @@ export const PLOT_CONFIG = {
     order: 0,
     display_size: 'half',
   },
+  gridColumns: {
+    label: 'Grid Columns',
+    type: 'number',
+    section: 'Style',
+    default: '',
+    order: 1,
+  },
 };

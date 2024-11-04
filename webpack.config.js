@@ -8,8 +8,8 @@ var webpackConfig = {
     multiple_value: './src/multiple_value/multiple_value_container.js',
   },
   devServer: {
-    contentBase: './dist',
-    https: true,
+    // contentBase: './dist',
+    // https: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
