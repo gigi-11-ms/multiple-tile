@@ -5,60 +5,9 @@ import MultipleValue from './multiple_value';
 import {formatValue} from '../lib/number_date_format';
 import {PLOT_CONFIG} from '../constants/plot_config';
 import {addBaseTagToHeadElement} from '../lib/add_base_element_to_head';
-// import {queryResponse, config, data} from './response';
 
 let currentOptions = {};
 let currentConfig = {};
-
-// const measures = [].concat(
-//   queryResponse.fields.dimensions,
-//   queryResponse.fields.measures,
-//   queryResponse.fields.table_calculations
-// );
-
-// const totalData = queryResponse.totals_data;
-// let firstRow = data[0];
-
-// const dataPoints = measures.map(measure => {
-//   const total = (totalData[measure.name] || {}).value;
-//   const formattedTotalHtml = (totalData[measure.name] || {}).html;
-//   return {
-//     name: measure.name,
-//     label: measure.label_short || measure.label,
-//     value: firstRow[measure.name].value,
-//     link: firstRow[measure.name].links,
-//     valueFormat: config[`value_format`],
-//     formattedValue: formatValue(
-//       config[`value_format_${measure.name}`],
-//       firstRow[measure.name].value,
-//       queryResponse.number_format
-//     ),
-//     html: firstRow[measure.name].html,
-//     total,
-//     formattedTotalHtml,
-//     fomrattedTotalValue: formatValue(measure.value_format, total),
-//   };
-// });
-
-// let valuesToComparisonsMap = {};
-// let lastDataPointIndex = -1;
-// const fullValues = dataPoints
-//   .filter((dataPoint, index) => {
-//     if (config[`show_comparison_${dataPoint.name}`] !== true) {
-//       lastDataPointIndex++;
-//       return true;
-//     } else {
-//       valuesToComparisonsMap[lastDataPointIndex] = index;
-//     }
-//     return false;
-//   })
-//   .map((fullValue, index) => {
-//     const comparisonIndex = valuesToComparisonsMap[index];
-//     if (comparisonIndex) {
-//       fullValue.comparison = dataPoints[comparisonIndex];
-//     }
-//     return fullValue;
-//   });
 
 const renderBlankVisualization = (element, done) => {
   ReactDOM.render(<MultipleValue config={{}} data={[]} />, element, done);
@@ -317,8 +266,6 @@ looker.plugins.visualizations.add({
     });
 
     if (!isEqual(currentOptions, options) || !isEqual(currentConfig, config)) {
-      console.log('update options');
-      console.log({options, config, currentConfig, currentOptions});
       this.trigger('registerOptions', options);
       currentOptions = Object.assign({}, options);
       currentConfig = Object.assign({}, config);
@@ -351,10 +298,3 @@ looker.plugins.visualizations.add({
     done();
   },
 });
-
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <MultipleValue config={config} data={fullValues} />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
