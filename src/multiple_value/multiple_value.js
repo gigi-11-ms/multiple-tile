@@ -179,6 +179,7 @@ class MultipleValue extends React.PureComponent {
 
     return (
       <DataPointsWrapper
+        className={'grid'}
         layout={this.getLayout()}
         font={config['grouping_font']}
         gridColumns={config.gridColumns}
@@ -202,6 +203,7 @@ class MultipleValue extends React.PureComponent {
           return (
             <>
               <DataPointGroup
+                className={'grid__group'}
                 comparisonPlacement={
                   compDataPoint &&
                   config[`comparison_label_placement_${compDataPoint.name}`]
@@ -210,15 +212,20 @@ class MultipleValue extends React.PureComponent {
                 layout={this.getLayout()}
               >
                 <DataPoint
+                  className={'grid__group__item'}
                   titlePlacement={config[`title_placement_${dataPoint.name}`]}
                 >
                   {config[`show_title_${dataPoint.name}`] === false ? null : (
-                    <DataPointTitle color={config[`style_${dataPoint.name}`]}>
+                    <DataPointTitle
+                      color={config[`style_${dataPoint.name}`]}
+                      className={'item__label'}
+                    >
                       {config[`title_override_${dataPoint.name}`] ||
                         dataPoint.label}
                     </DataPointTitle>
                   )}
                   <DataPointValue
+                    className={'item__value'}
                     color={config[`style_${dataPoint.name}`]}
                     onClick={() => {
                       this.handleClick(dataPoint, event);
