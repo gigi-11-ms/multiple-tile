@@ -32,6 +32,7 @@ looker.plugins.visualizations.add({
       queryResponse.fields.table_calculations
     );
 
+    const hasTotals = queryResponse.has_totals;
     const totalData = queryResponse.totals_data;
 
     if (data.length < 1) {
@@ -68,9 +69,7 @@ looker.plugins.visualizations.add({
     let firstRow = data[0];
 
     const dataPoints = measures.map(measure => {
-      const total = (totalData[measure.name] || {}).value;
-      const formattedTotalHtml = (totalData[measure.name] || {}).html;
-      return {
+      const points = {
         name: measure.name,
         label: measure.label_short || measure.label,
         value: firstRow[measure.name].value,
@@ -86,10 +85,17 @@ looker.plugins.visualizations.add({
                 queryResponse.number_format
               ),
         html: firstRow[measure.name].html,
-        total,
-        formattedTotalHtml,
-        fomrattedTotalValue: formatValue(measure.value_format, total),
       };
+
+      if (hasTotals) {
+        const total = (totalData[measure.name] || {}).value;
+        const formattedTotalHtml = (totalData[measure.name] || {}).html;
+
+        points.total = total;
+        points.formattedTotalHtml = formattedTotalHtml;
+        points.fomrattedTotalValue = formatValue(measure.value_format, total);
+      }
+      return points;
     });
 
     const options = Object.assign({}, PLOT_CONFIG);
@@ -170,13 +176,14 @@ looker.plugins.visualizations.add({
         };
 
         // totals
-        options[`show_total_${dataPoint.name}`] = {
-          type: 'boolean',
-          label: `${dataPoint.label} - Show Total`,
-          section: 'Total',
-          default: false,
-          order: index + 1,
-        };
+        if (hasTotals && dataPoint.total)
+          options[`show_total_${dataPoint.name}`] = {
+            type: 'boolean',
+            label: `${dataPoint.label} - Show Total`,
+            section: 'Total',
+            default: false,
+            order: index + 1,
+          };
 
         if (config[`show_comparison_${dataPoint.name}`] === true) {
           options[`comparison_style_${dataPoint.name}`] = {
